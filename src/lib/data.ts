@@ -6,13 +6,15 @@ export const data = [
   { id: 5, symbol: '🍓' },
   { id: 6, symbol: '🍅' },
 ];
-export const shuffleData = data.flatMap((item) => [item, item]);
+export const duplicatedData = data.flatMap((item) => [item, item]);
 
-export const shuffle = () => {
-  const array = [...shuffleData];
-  for (let i = array.length - 1; i > 0; i--) {
+const shuffle = (array: typeof duplicatedData) => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [array[j], array[i]] = [array[i], array[j]];
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
-  return array;
+  return shuffled;
 };
+
+export const shuffleData = shuffle(duplicatedData);
