@@ -1,4 +1,6 @@
-export const data = [
+import type { CardType } from './type';
+
+export const data: CardType[] = [
   { id: 1, symbol: '👾' },
   { id: 2, symbol: '👓' },
   { id: 3, symbol: '🛌🏻' },

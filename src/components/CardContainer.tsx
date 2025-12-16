@@ -1,10 +1,22 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { shuffleData } from '../lib/data';
 import Card from './Card';
 import './CardContainer.css';
+import type { CardType } from '../lib/type';
 
 export default function CardContainer() {
   const [selectedIndex, setSelectedIndex] = useState<number[]>([]);
+  const [matchedIndex, setMatchedIndex] = useState<CardType[]>([]);
+
+  const handleClickCard = useCallback((index: number) => {
+    setSelectedIndex((prev) => {
+      if (prev.includes(index)) {
+        return prev.filter((i) => i !== index);
+      }
+      return [...prev, index];
+    });
+    setMatchedIndex((prev) => {});
+  }, []);
 
   return (
     <div className='card-container'>
@@ -13,14 +25,7 @@ export default function CardContainer() {
           key={index}
           symbol={item.symbol}
           isSelected={selectedIndex.includes(index)}
-          onClickCard={() => {
-            setSelectedIndex((prev) => {
-              if (prev.includes(index)) {
-                return prev.filter((i) => i !== index);
-              }
-              return [...prev, index];
-            });
-          }}
+          onClickCard={() => handleClickCard(index)}
         />
       ))}
     </div>
