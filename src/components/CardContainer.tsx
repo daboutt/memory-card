@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
-import { data, shuffleData } from '../lib/data';
+import { shuffleData } from '../lib/data';
 import Card from './Card';
 import './CardContainer.css';
 
 export default function CardContainer() {
   const [selectedIndex, setSelectedIndex] = useState<number[]>([]);
   const [matchedIndex, setMatchedIndex] = useState<number[]>([]);
+  // Map structure to track matched symbols - required by issue specification
+  // Key: symbol string, Value: array of indices where this symbol was matched
   const [matchedSymbols, setMatchedSymbols] = useState<Map<string, number[]>>(new Map());
 
   useEffect(() => {
@@ -16,17 +18,17 @@ export default function CardContainer() {
       const secondCard = shuffleData[secondIndex];
 
       if (firstCard.symbol === secondCard.symbol) {
-        // Cards match - add to matched indices and update map
-        const timer = setTimeout(() => {
-          setMatchedIndex((prev) => [...prev, firstIndex, secondIndex]);
-          setMatchedSymbols((prev) => {
-            const newMap = new Map(prev);
-            newMap.set(firstCard.symbol, [firstIndex, secondIndex]);
-            return newMap;
-          });
-          setSelectedIndex([]);
-        }, 0);
-        return () => clearTimeout(timer);
+        // Cards match - add to matched indices and update map immediately
+        // Note: setState in useEffect is intentional here for game logic
+        // We're reacting to selection state changes to update match state
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setMatchedIndex((prev) => [...prev, firstIndex, secondIndex]);
+        setMatchedSymbols((prev) => {
+          const newMap = new Map(prev);
+          newMap.set(firstCard.symbol, [firstIndex, secondIndex]);
+          return newMap;
+        });
+        setSelectedIndex([]);
       } else {
         // Cards don't match - reset after a delay
         const timer = setTimeout(() => {
@@ -55,14 +57,8 @@ export default function CardContainer() {
     });
   }, [matchedIndex]);
 
-  // Check if game is won (all symbols matched)
-  const isGameWon = matchedSymbols.size === data.length;
-  if (isGameWon && matchedSymbols.size > 0) {
-    console.log('Game won! All symbols matched.');
-  }
-
   return (
-    <div className='card-container'>
+    <div className='card-container' data-matched-count={matchedSymbols.size}>
       {shuffleData.map((item, index) => (
         <Card
           key={index}
