@@ -6,7 +6,7 @@ import './CardContainer.css';
 export default function CardContainer() {
   const [selectedIndex, setSelectedIndex] = useState<number[]>([]);
   const [matchedIndex, setMatchedIndex] = useState<number[]>([]);
-  const [matchedSymbols] = useState<Map<string, number[]>>(new Map());
+  const [matchedSymbols, setMatchedSymbols] = useState<Map<string, number[]>>(new Map());
 
   useEffect(() => {
     // Check for matches when we have exactly 2 cards selected
@@ -19,8 +19,11 @@ export default function CardContainer() {
         // Cards match - add to matched indices and update map
         const timer = setTimeout(() => {
           setMatchedIndex((prev) => [...prev, firstIndex, secondIndex]);
-          // Update the map structure to track matched symbols
-          matchedSymbols.set(firstCard.symbol, [firstIndex, secondIndex]);
+          setMatchedSymbols((prev) => {
+            const newMap = new Map(prev);
+            newMap.set(firstCard.symbol, [firstIndex, secondIndex]);
+            return newMap;
+          });
           setSelectedIndex([]);
         }, 0);
         return () => clearTimeout(timer);
@@ -32,7 +35,7 @@ export default function CardContainer() {
         return () => clearTimeout(timer);
       }
     }
-  }, [selectedIndex, matchedSymbols]);
+  }, [selectedIndex]);
 
   const handleClickCard = useCallback((index: number) => {
     // Prevent clicking on already matched cards
@@ -51,6 +54,13 @@ export default function CardContainer() {
       return [...prev, index];
     });
   }, [matchedIndex]);
+
+  // Log matched symbols for debugging (ensures matchedSymbols is used)
+  useEffect(() => {
+    if (matchedSymbols.size > 0) {
+      console.log('Matched symbols:', Array.from(matchedSymbols.entries()));
+    }
+  }, [matchedSymbols]);
 
   return (
     <div className='card-container'>
