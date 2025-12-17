@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { shuffleData } from '../lib/data';
+import { data, shuffleData } from '../lib/data';
 import Card from './Card';
 import './CardContainer.css';
 
@@ -55,12 +55,11 @@ export default function CardContainer() {
     });
   }, [matchedIndex]);
 
-  // Log matched symbols for debugging (ensures matchedSymbols is used)
-  useEffect(() => {
-    if (matchedSymbols.size > 0) {
-      console.log('Matched symbols:', Array.from(matchedSymbols.entries()));
-    }
-  }, [matchedSymbols]);
+  // Check if game is won (all symbols matched)
+  const isGameWon = matchedSymbols.size === data.length;
+  if (isGameWon && matchedSymbols.size > 0) {
+    console.log('Game won! All symbols matched.');
+  }
 
   return (
     <div className='card-container'>
