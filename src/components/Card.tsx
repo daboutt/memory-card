@@ -11,7 +11,7 @@ export default function Card({ symbol, isSelected, onClickCard }: CardProps) {
     <motion.div
       initial={{ scale: 0 }}
       animate={{ scale: 1, rotateY: isSelected ? 0 : 180 }}
-      className='card'
+      className={`card ${isSelected && 'matched'}`}
       onClick={onClickCard}
     >
       <motion.div
