@@ -1,31 +1,55 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { shuffleData } from '../lib/data';
 import Card from './Card';
 import './CardContainer.css';
 import type { CardType } from '../lib/type';
 
+type SelectCard = CardType & {
+  index: number;
+};
 export default function CardContainer() {
-  const [selectedIndex, setSelectedIndex] = useState<number[]>([]);
-  const [matchedIndex, setMatchedIndex] = useState<CardType[]>([]);
+  const [indexSelected, setIndexSelected] = useState<number[]>([]);
+  const [firstSelectedCard, setFirstSelectedCard] = useState<SelectCard>();
+  const [secondSelectedCard, setSecondSelectedCard] = useState<SelectCard>();
+  const [matchList, setMatchList] = useState<number[]>([]);
 
-  const handleClickCard = useCallback((index: number) => {
-    setSelectedIndex((prev) => {
-      if (prev.includes(index)) {
-        return prev.filter((i) => i !== index);
+  const handleClickCard = useCallback(
+    (card: SelectCard) => {
+      if (firstSelectedCard) {
+        setSecondSelectedCard(card);
+        setTimeout(() => {
+          if (
+            firstSelectedCard.symbol === card.symbol &&
+            firstSelectedCard.index !== card.index
+          ) {
+            setMatchList((prev) => [
+              ...prev,
+              firstSelectedCard.index,
+              card.index,
+            ]);
+          }
+          setFirstSelectedCard(undefined);
+          setSecondSelectedCard(undefined);
+        }, 200);
+      } else {
+        setFirstSelectedCard(card);
       }
-      return [...prev, index];
-    });
-    setMatchedIndex((prev) => {});
-  }, []);
+    },
+    [firstSelectedCard]
+  );
 
   return (
     <div className='card-container'>
-      {shuffleData.map((item, index) => (
+      {shuffleData.map((item, i) => (
         <Card
-          key={index}
+          key={i}
           symbol={item.symbol}
-          isSelected={selectedIndex.includes(index)}
-          onClickCard={() => handleClickCard(index)}
+          isSelected={
+            matchList.includes(i) ||
+            secondSelectedCard?.index === i ||
+            firstSelectedCard?.index === i
+          }
+          onClickCard={() => handleClickCard({ ...item, index: i })}
         />
       ))}
     </div>
