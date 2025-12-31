@@ -13,21 +13,6 @@ export const data: CardType[] = [
   { id: 10, symbol: '🐙' },
   { id: 11, symbol: '🦋' },
   { id: 12, symbol: '🌈' },
-  { id: 13, symbol: '🔥' },
-  { id: 14, symbol: '💎' },
-  { id: 15, symbol: '🎸' },
-  { id: 16, symbol: '🚀' },
-  { id: 17, symbol: '🎭' },
-  { id: 18, symbol: '🍕' },
-  { id: 19, symbol: '🎯' },
-  { id: 20, symbol: '🦊' },
-  { id: 21, symbol: '🐳' },
-  { id: 22, symbol: '🌸' },
-  { id: 23, symbol: '⚡' },
-  { id: 24, symbol: '🎪' },
-  // { id: 25, symbol: '🍩' },
-  // { id: 26, symbol: '🎨' },
-  // { id: 27, symbol: '🦁' },
 ];
 export const duplicatedData = data.flatMap((item) => [item, item]);
 

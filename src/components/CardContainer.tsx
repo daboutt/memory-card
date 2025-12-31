@@ -64,6 +64,7 @@ const CardContainer = forwardRef<CardContainerRef, CardContainerProps>(
           <Card
             key={i}
             symbol={item.symbol}
+            isMatch={matchList.includes(i)}
             isSelected={
               matchList.includes(i) ||
               secondSelectedCard?.index === i ||
