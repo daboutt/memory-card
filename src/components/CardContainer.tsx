@@ -35,6 +35,7 @@ const CardContainer = forwardRef<CardContainerRef, CardContainerProps>(
     const handleClickCard = useCallback(
       (card: SelectCard) => {
         if (card.index === firstSelectedCard?.index) return;
+
         if (firstSelectedCard) {
           setSecondSelectedCard(card);
           setTimeout(() => {
@@ -50,7 +51,7 @@ const CardContainer = forwardRef<CardContainerRef, CardContainerProps>(
             }
             setFirstSelectedCard(undefined);
             setSecondSelectedCard(undefined);
-          }, 200);
+          }, 1000);
         } else {
           setFirstSelectedCard(card);
         }
@@ -70,7 +71,10 @@ const CardContainer = forwardRef<CardContainerRef, CardContainerProps>(
               secondSelectedCard?.index === i ||
               firstSelectedCard?.index === i
             }
-            onClickCard={() => handleClickCard({ ...item, index: i })}
+            onClickCard={() => {
+              if (secondSelectedCard) return;
+              handleClickCard({ ...item, index: i });
+            }}
           />
         ))}
       </div>
