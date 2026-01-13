@@ -1,8 +1,8 @@
-import { useCallback, useImperativeHandle, useState, forwardRef } from 'react';
+import { forwardRef, useCallback, useImperativeHandle, useState } from 'react';
 import { getShuffledData } from '../lib/data';
+import type { CardType } from '../lib/type';
 import Card from './Card';
 import './CardContainer.css';
-import type { CardType } from '../lib/type';
 
 type SelectCard = CardType & {
   index: number;
@@ -60,7 +60,7 @@ const CardContainer = forwardRef<CardContainerRef, CardContainerProps>(
     );
 
     return (
-      <div className='card-container'>
+      <div className="card-container">
         {cards.map((item, i) => (
           <Card
             key={i}

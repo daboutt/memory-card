@@ -12,7 +12,7 @@ export default function PlayerInformation({
   score,
 }: PlayerInformationProps) {
   return (
-    <div className='player-infor'>
+    <div className="player-infor">
       <h2>Game player</h2>
       <div
         style={{
@@ -22,13 +22,13 @@ export default function PlayerInformation({
           gap: '7rem',
         }}
       >
-        <div className={`player-1-container ${isPlayerOneTurn && 'turn'}`}>
-          <div className='circle'></div>
-          Player 1 ({score.playerOne})
+        <div className={`player-container ${isPlayerOneTurn && 'turn'}`}>
+          <div className="circle"></div>
+          Player 1 - {score.playerOne}
         </div>
-        <div className={`player-2-container ${!isPlayerOneTurn && 'turn'}`}>
-          <div className='circle'></div>
-          Player 2 ({score.playerTwo})
+        <div className={`player-container ${!isPlayerOneTurn && 'turn'}`}>
+          <div className="circle"></div>
+          Player 2 - {score.playerTwo}
         </div>
       </div>
     </div>

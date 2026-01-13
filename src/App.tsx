@@ -1,13 +1,14 @@
 import { useRef } from 'react';
-import './App.css';
+import GameControl from './GameControl';
 import CardContainer, {
   type CardContainerRef,
 } from './components/CardContainer';
-import PlayerInformation from './components/PlayerInformation';
 import { useGamePlay } from './hooks/useGamePlay';
+import './App.css';
 
 function App() {
   const cardContainerRef = useRef<CardContainerRef>(null);
+
   const {
     score,
     handleAddScore,
@@ -23,15 +24,17 @@ function App() {
 
   return (
     <>
-      <PlayerInformation isPlayerOneTurn={isFirstPlayerTurn} score={score} />
+      <GameControl
+        isFirstPlayerTurn={isFirstPlayerTurn}
+        score={score}
+        handleReset={handleReset}
+      />
+
       <CardContainer
         ref={cardContainerRef}
         handleTogglePlayerTurn={handleTogglePlayerTurn}
         handleAddScore={handleAddScore}
       />
-      <button className='reset-button' onClick={handleReset}>
-        Reset Game
-      </button>
     </>
   );
 }
