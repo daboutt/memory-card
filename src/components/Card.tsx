@@ -20,7 +20,7 @@ export default function Card({
         <motion.div
           initial={{ scale: 1 }}
           animate={{ scale: 0 }}
-          className='card matched-card'
+          className="card matched-card"
         ></motion.div>
       ) : (
         <motion.div
@@ -36,7 +36,7 @@ export default function Card({
           <motion.div
             initial={{ rotateY: 0 }}
             animate={{ rotateY: isSelected ? 0 : 180 }}
-            className='front-card'
+            className="front-card"
             transition={{
               duration: 0.8,
               type: 'spring',
@@ -46,7 +46,7 @@ export default function Card({
           </motion.div>
           <motion.div
             initial={{ rotateY: 180 }}
-            className='back-card'
+            className="back-card"
             transition={{
               duration: 0.8,
               type: 'spring',
