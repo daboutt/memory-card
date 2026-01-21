@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import './PlayerInformation.css';
 
 interface PlayerInformationProps {
@@ -14,21 +15,20 @@ export default function PlayerInformation({
   return (
     <div className="player-infor">
       <h2>Game player</h2>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: '7rem',
-        }}
-      >
-        <div className={`player-container ${isPlayerOneTurn && 'turn'}`}>
-          <div className="circle"></div>
-          Player 1 - {score.playerOne}
+      <div className="players-container">
+        <div className={`player-1-container ${isPlayerOneTurn && 'turn'}`}>
+          <div>
+            <div className="circle"></div>
+            Player 1
+          </div>
+          <motion.div className="point">{score.playerOne}</motion.div>
         </div>
-        <div className={`player-container ${!isPlayerOneTurn && 'turn'}`}>
-          <div className="circle"></div>
-          Player 2 - {score.playerTwo}
+        <div className={`player-2-container ${!isPlayerOneTurn && 'turn'}`}>
+          <div>
+            <div className="circle"></div>
+            Player 2
+          </div>
+          <div className="point">{score.playerTwo}</div>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import GameControl from './GameControl';
 import CardContainer, {
   type CardContainerRef,
@@ -8,6 +8,8 @@ import './App.css';
 
 function App() {
   const cardContainerRef = useRef<CardContainerRef>(null);
+  const [isResetting, setIsResetting] = useState(false);
+  const [shuffleDone, setShuffleDone] = useState(false);
 
   const {
     score,
@@ -28,12 +30,16 @@ function App() {
         isFirstPlayerTurn={isFirstPlayerTurn}
         score={score}
         handleReset={handleReset}
+        shuffleDone={shuffleDone}
       />
 
       <CardContainer
         ref={cardContainerRef}
         handleTogglePlayerTurn={handleTogglePlayerTurn}
         handleAddScore={handleAddScore}
+        isResetting={isResetting}
+        setIsResetting={setIsResetting}
+        setShuffleDone={setShuffleDone}
       />
     </>
   );
