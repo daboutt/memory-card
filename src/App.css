@@ -17,4 +17,9 @@
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.2s;
+  min-width: 162px;
+}
+.reset-button.disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
 }

@@ -16,18 +16,30 @@ export interface CardContainerRef {
 interface CardContainerProps {
   handleTogglePlayerTurn: () => void;
   handleAddScore: () => void;
+  isResetting: boolean;
+  setIsResetting: (value: boolean) => void;
+  setShuffleDone: (value: boolean) => void;
 }
 const CardContainer = forwardRef<CardContainerRef, CardContainerProps>(
-  ({ handleAddScore, handleTogglePlayerTurn }, ref) => {
+  (
+    {
+      handleAddScore,
+      handleTogglePlayerTurn,
+      isResetting,
+      setIsResetting,
+      setShuffleDone,
+    },
+    ref
+  ) => {
     const [cards, setCards] = useState(() => getShuffledData());
     const [firstSelectedCard, setFirstSelectedCard] = useState<SelectCard>();
     const [secondSelectedCard, setSecondSelectedCard] = useState<SelectCard>();
     const [matchList, setMatchList] = useState<number[]>([]);
-    const [isResetting, setIsResetting] = useState(false);
 
     useImperativeHandle(ref, () => ({
       reset: async () => {
         setIsResetting(true);
+        setShuffleDone(true);
 
         // Wait for gather animation
         await new Promise((resolve) => setTimeout(resolve, 800));
@@ -40,11 +52,11 @@ const CardContainer = forwardRef<CardContainerRef, CardContainerProps>(
         setFirstSelectedCard(undefined);
         setSecondSelectedCard(undefined);
         setMatchList([]);
+        setIsResetting(false);
 
         // Wait for deal animation
-        await new Promise((resolve) => setTimeout(resolve, 600));
-
-        setIsResetting(false);
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+        setShuffleDone(false);
       },
     }));
 
