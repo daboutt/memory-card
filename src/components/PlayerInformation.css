@@ -6,6 +6,15 @@
   margin-top: 0;
   gap: 16px;
 }
+.players-container {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+  padding-left: 2rem;
+  width: 304px;
+  gap: 1rem;
+}
 .circle {
   width: 24px;
   height: 24px;
@@ -16,19 +25,26 @@
   display: inline-block;
   margin-right: 8px;
 }
-.player-container {
+.player-1-container,
+.player-2-container {
+  width: 100%;
   display: flex;
   font-size: 1.25rem;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
 }
-
+.player-1-container div,
+.player-2-container div {
+  display: flex;
+  align-items: center;
+}
 .player-1-container.turn {
   .circle {
-    background-color: palevioletred;
+    background-color: #c03221;
   }
 }
 .player-2-container.turn {
   .circle {
-    background-color: #1976d2;
+    background-color: #fafffd;
   }
 }

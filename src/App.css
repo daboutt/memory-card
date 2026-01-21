@@ -11,14 +11,10 @@
   padding: 0.75rem 2rem;
   font-size: 1.1rem;
   font-weight: 600;
-  color: black;
-  background-color: white;
+  color: #1c1c1c;
+  background-color: #fafffd;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.2s;
-}
-
-.reset-button:hover {
-  background-color: white;
 }

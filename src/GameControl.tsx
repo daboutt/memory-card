@@ -1,4 +1,6 @@
+import { motion } from 'framer-motion';
 import PlayerInformation from './components/PlayerInformation';
+import './GameControl.css';
 
 export default function GameControl({
   isFirstPlayerTurn,
@@ -15,9 +17,13 @@ export default function GameControl({
   return (
     <div className="gameplay">
       <PlayerInformation isPlayerOneTurn={isFirstPlayerTurn} score={score} />
-      <button className="reset-button" onClick={handleReset}>
+      <motion.button
+        whileTap={{ scale: 0.9 }}
+        className="reset-button"
+        onClick={handleReset}
+      >
         Reset Game
-      </button>
+      </motion.button>
     </div>
   );
 }
